@@ -2,6 +2,7 @@ import tensorflow as tf
 import time
 import random
 import argparse
+import numpy as np
 from util import *
 from SCML import SCML
 from evaluate import evaluate
@@ -38,7 +39,7 @@ parser.add_argument('--emb_reg', type=float, default=1.0)
 parser.add_argument('--output_reg', type=float, default=1.0)
 '''
 args = parser.parse_args()
-print(args)
+print(vars(args))
 
 gpu_options = tf.GPUOptions(allow_growth=True)
 with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
@@ -75,8 +76,8 @@ with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(gpu_options=gpu_o
         print("training dae loss: %.2f, training ste loss: %.2f" % (training_dae_loss, training_ste_loss))
 
         batch_size_test = 1000
-        rank_list_r = []
-        rank_list_s = []
+        rank_list_r = list()
+        rank_list_s = list()
         for start in range(0, num_user, batch_size_test):
             r_hat_r, r_hat_s = sess.run([model.r_hat_ui_rating, model.r_hat_ui_social], feed_dict=feed_dict_test(model, validation_data, rating_matrix_sparse, social_matrix_sparse, start, start+batch_size_test))
             rank_list_r.extend(r_hat_r.argsort()[:, ::-1].tolist())
@@ -88,8 +89,8 @@ with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(gpu_options=gpu_o
 
     print("Model testing...")
     batch_size_test = 1000
-    rank_list_r = []
-    rank_list_s = []
+    rank_list_r = list()
+    rank_list_s = list()
     for start in range(0, num_user, batch_size_test):
         r_hat_r, r_hat_s = sess.run([model.r_hat_ui_rating, model.r_hat_ui_social], feed_dict=feed_dict_test(model, test_data, rating_matrix_sparse, social_matrix_sparse, start, start+batch_size_test))
         rank_list_r.extend(r_hat_r.argsort()[:, ::-1].tolist())
