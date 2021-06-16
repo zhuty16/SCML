@@ -6,6 +6,8 @@ This is our Tensorflow implementation for the paper:
 ## Introduction
 Social Collaborative Mutual Learning (SCML) is a social recommendation framework that combines the item-based CF model with the social CF model by two mutual regularization strategies.
 
+![](https://github.com/zhuty16/SCML/blob/master/framework.jpg)
+
 ## Citation
 ```
 @article{zhu2020social,
