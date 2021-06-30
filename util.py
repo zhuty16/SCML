@@ -2,9 +2,9 @@ import numpy as np
 import scipy.sparse as sp
 
 
-def generate_sparse_rating_matrix(training_dict, num_user, num_item):
-    row = []
-    col = []
+def get_sparse_rating_matrix(training_dict, num_user, num_item):
+    row = list()
+    col = list()
     for u in training_dict:
         for i in training_dict[u]:
             row.append(u)
@@ -13,9 +13,9 @@ def generate_sparse_rating_matrix(training_dict, num_user, num_item):
     return rating_matrix_sparse
 
 
-def generate_sparse_social_matrix(social_dict, num_user):
-    row = []
-    col = []
+def get_sparse_social_matrix(social_dict, num_user):
+    row = list()
+    col = list()
     for u in social_dict:
         for v in social_dict[u]:
             row.append(u)
@@ -24,8 +24,8 @@ def generate_sparse_social_matrix(social_dict, num_user):
     return social_matrix_sparse
 
 
-def generate_user_batch(num_user, batch_size):
-    user_batch = []
+def get_user_batch(num_user, batch_size):
+    user_batch = list()
     user_list = list(range(num_user))
     np.random.shuffle(user_list)
     i = 0
@@ -35,8 +35,8 @@ def generate_user_batch(num_user, batch_size):
     return user_batch
 
 
-def generate_test_data(test_dict, negative_dict):
-    test_data = []
+def get_test_data(test_dict, negative_dict):
+    test_data = list()
     for u in test_dict:
         test_data.append([u, test_dict[u]] + negative_dict[u])
     test_data = np.asarray(test_data)

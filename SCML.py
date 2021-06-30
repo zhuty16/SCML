@@ -21,17 +21,17 @@ class SCML(object):
 
         with tf.name_scope('Mult-DAE'):
             # input
-            self.rating_u = tf.placeholder(tf.float32, [None, self.num_item], name="rating_u") # user's rating vector
-            self.keep_prob = tf.placeholder(tf.float32, name="keep_prob")
+            self.rating_u = tf.placeholder(tf.float32, [None, self.num_item], name='rating_u') # user's rating vector
+            self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
             # parameters
             # item embeddings
-            W_in_rating = tf.Variable(tf.random_normal([self.num_item, self.num_factor], stddev=0.01), name="W_in_rating")
-            W_out_rating = tf.Variable(tf.random_normal([self.num_factor, self.num_item], stddev=0.01), name="W_out_rating")
+            W_in_rating = tf.Variable(tf.random_normal([self.num_item, self.num_factor], stddev=0.01), name='W_in_rating')
+            W_out_rating = tf.Variable(tf.random_normal([self.num_factor, self.num_item], stddev=0.01), name='W_out_rating')
 
             # bias
-            b_in_rating = tf.Variable(tf.zeros([1, self.num_factor]), name="b_in_rating")
-            b_out_rating = tf.Variable(tf.zeros([1, self.num_item]), name="b_out_rating")
+            b_in_rating = tf.Variable(tf.zeros([1, self.num_factor]), name='b_in_rating')
+            b_out_rating = tf.Variable(tf.zeros([1, self.num_item]), name='b_out_rating')
 
             # model
             # l2 normalize
@@ -51,18 +51,18 @@ class SCML(object):
 
         with tf.name_scope('Mult-STE'):
             # input
-            self.social_u = tf.placeholder(tf.float32, [None, self.num_user], name="social_u") # users' adjacency vectors
+            self.social_u = tf.placeholder(tf.float32, [None, self.num_user], name='social_u') # users' adjacency vectors
 
             # parameters
             # user embedding
-            W_in_social = tf.Variable(tf.random_normal([self.num_user, self.num_factor], stddev=0.01), name="W_in_social")
+            W_in_social = tf.Variable(tf.random_normal([self.num_user, self.num_factor], stddev=0.01), name='W_in_social')
 
             # item embedding
-            W_out_social = tf.Variable(tf.random_normal([self.num_factor, self.num_item], stddev=0.01), name="W_out_social")
+            W_out_social = tf.Variable(tf.random_normal([self.num_factor, self.num_item], stddev=0.01), name='W_out_social')
 
             # bias
-            b_in_social = tf.Variable(tf.zeros([1, self.num_factor]), name="b_in_social")
-            b_out_social = tf.Variable(tf.zeros([1, self.num_item]), name="b_out_social")
+            b_in_social = tf.Variable(tf.zeros([1, self.num_factor]), name='b_in_social')
+            b_out_social = tf.Variable(tf.zeros([1, self.num_item]), name='b_out_social')
 
             # model
             # l2 normalize
@@ -99,7 +99,7 @@ class SCML(object):
 
         with tf.name_scope('test'):
             # candidate items
-            self.i = tf.placeholder(tf.int32, [None, 100], name="i")
+            self.i = tf.placeholder(tf.int32, [None, 100], name='i')
 
             # Mult-DAE prediction
             i_emb_rating = tf.nn.embedding_lookup(tf.transpose(W_out_rating), self.i)
